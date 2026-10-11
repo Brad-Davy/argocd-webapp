@@ -1,0 +1,22 @@
+# App of apps: syncs every Application in this folder. Apply once by hand; Argo manages the rest.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Brad-Davy/argocd-webapp.git
+    targetRevision: main
+    path: argocd
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

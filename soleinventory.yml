@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: soleinventory
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Brad-Davy/argo-webapp.git
+    targetRevision: main
+    path: apps/soleinventory
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
